@@ -122,7 +122,7 @@
     for (var i = 0; i < countOfParticles; i++) {
       array.pop();
     }
-    console.log(array.length);
+    // console.log(array.length);
   }
 
   init();
