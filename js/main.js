@@ -11,6 +11,8 @@
   var string = ["#d902ee", "#ffd79d", "#f162ff", "#320d3e"];
   var maxvelocity = 1.7;
   let pTimestamp = 0;
+  var countOfParticles = 40;
+  var isLessYet = true;
 
   class Particle {
     constructor() {
@@ -39,6 +41,24 @@
     pTimestamp = timestamp;
     canvas.width = window.innerWidth;
     w = canvas.width;
+
+    if (w < 600 && isLessYet) {
+      removeAll(particles);
+      countOfParticles = 20;
+      initParticleswhithNumber(countOfParticles);
+      isLessYet = !isLessYet;
+
+      // console.log(particles.length);
+    }
+    if (w > 600 && !isLessYet) {
+      removeAll(particles);
+      countOfParticles = 40;
+      initParticleswhithNumber(countOfParticles);
+      isLessYet = !isLessYet;
+
+      // console.log(particles.length);
+    }
+
     for (var i in particles) {
       if (
         particles[i].x > w + 2 ||
@@ -86,13 +106,23 @@
 
   function init() {
     requestAnimationFrame(tick);
-
-    for (var i = 0; i < 40; i++) {
-      particles.push(new Particle());
-    }
+    initParticleswhithNumber(countOfParticles);
     particles.forEach((x) => {
       x.drawp();
     });
+  }
+
+  function initParticleswhithNumber(count) {
+    for (var i = 0; i < count; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function removeAll(array) {
+    for (var i = 0; i < countOfParticles; i++) {
+      array.pop();
+    }
+    console.log(array.length);
   }
 
   init();
